@@ -1,13 +1,19 @@
 FROM ubuntu:22.04
-LABEL org.opencontainers.image.source https://github.com/pengzhendong/devcontainer
-LABEL maintainer="Zhendong Peng <zhendong.peng@qq.com>"
+LABEL org.opencontainers.image.source https://github.com/mlwu-ai/devcontainer
+LABEL maintainer="Menglin Wu <menglinwoo@163.com>"
 
 ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN apt update \
-  && apt install -y autojump curl ffmpeg fzf git sox sudo tmux wget zsh
+  && apt install -y autojump curl ffmpeg fzf git sox sudo tmux wget zsh libsndfile1 \
+  libopenmpi-dev openmpi-bin screen zip unzip htop rename
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get -qq -y autoremove \
+  && apt-get autoclean \
+  && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
+
 RUN groupadd --gid $USER_GID $USERNAME \
   && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
   && usermod -aG sudo $USERNAME \
@@ -19,7 +25,7 @@ RUN cd ~ \
   && sh Miniforge3-$(uname)-$(uname -m).sh -b \
   && rm Miniforge3-$(uname)-$(uname -m).sh \
   && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-  && sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply pengzhendong \
+  && sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply wumenglin \
   && wait="" /bin/zsh ~/.zshrc
 
 ENV TERM=xterm-256color

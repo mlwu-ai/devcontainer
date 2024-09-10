@@ -2,7 +2,7 @@ version: '3'
 
 services:
   app:
-    image: ghcr.io/pengzhendong/devcontainer:master
+    image: ghcr.io/wumenglin/devcontainer:master
     platform: linux/amd64
     container_name: dev
     volumes:
