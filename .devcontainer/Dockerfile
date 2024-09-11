@@ -6,8 +6,8 @@ ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-RUN apt update \
-  && apt install -y autojump curl ffmpeg fzf git sox sudo tmux wget zsh libsndfile1 \
+RUN apt-get -qq update && apt-get -qq -y install --no-install-recommends apt-transport-https
+RUN apt-get -qq update && apt-get -qq -y install --no-install-recommends autojump curl ffmpeg fzf git sox sudo tmux wget zsh libsndfile1 \
   libopenmpi-dev openmpi-bin screen zip unzip htop rename \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get -qq -y autoremove \
