@@ -7,12 +7,21 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN apt-get -qq update && apt-get -qq -y install --no-install-recommends apt-transport-https
+RUN apt -qq -y install --reinstall ca-certificates \
+  && update-ca-certificates -f \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get -qq -y autoremove \
+  && apt-get autoclean \
+  && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
+
 RUN apt-get -qq update && apt-get -qq -y install --no-install-recommends autojump curl ffmpeg fzf git sox sudo tmux wget zsh libsndfile1 \
   libopenmpi-dev openmpi-bin screen zip unzip htop rename \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get -qq -y autoremove \
   && apt-get autoclean \
   && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
+
+
 
 RUN groupadd --gid $USER_GID $USERNAME \
   && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
