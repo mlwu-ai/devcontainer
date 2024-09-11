@@ -8,7 +8,7 @@ ARG USER_GID=$USER_UID
 
 RUN apt update \
   && apt install -y autojump curl ffmpeg fzf git sox sudo tmux wget zsh libsndfile1 \
-  libopenmpi-dev openmpi-bin screen zip unzip htop rename
+  libopenmpi-dev openmpi-bin screen zip unzip htop rename \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get -qq -y autoremove \
   && apt-get autoclean \
