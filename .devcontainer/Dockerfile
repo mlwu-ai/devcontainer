@@ -24,9 +24,7 @@ RUN cd ~ \
   && wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh" \
   && sh Miniforge3-$(uname)-$(uname -m).sh -b \
   && rm Miniforge3-$(uname)-$(uname -m).sh \
-  && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
-  && sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply wumenglin \
-  && wait="" /bin/zsh ~/.zshrc
+  && /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 ENV TERM=xterm-256color
 ENV DEBIAN_FRONTEND=dialog
